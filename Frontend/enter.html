@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enter - Crown Le Corp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#f0ebe0;--ecru:#e4ddd0;--warm-white:#f7f4ef;--charcoal:#1c1917;--dark:#111009;--gold:#b8976a;--gold-light:#d4b896;--mid:#7a736a;--soft:#c8bfb4;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--bone);font-family:"Jost",sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+
+.cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;}
+.cursor-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;position:absolute;transform:translate(-50%,-50%);}
+.cursor-ring{width:36px;height:36px;border:1px solid rgba(184,151,106,.5);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s;}
+
+body::after{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.4;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,padding .4s;background:rgba(11,10,9,.95);backdrop-filter:blur(12px);}
+.nav-logo{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:13px;letter-spacing:.35em;text-transform:uppercase;color:var(--bone);text-decoration:none;}
+.nav-links{display:flex;gap:40px;list-style:none;}
+.nav-links a{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--soft);text-decoration:none;transition:color .4s;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-cart{position:relative;background:none;border:none;color:var(--soft);font-family:"Jost",sans-serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;cursor:pointer;}
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  color:var(--bone);
+  cursor:pointer;
+  z-index:300;
+}
+
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+#hero-enter{position:relative;height:80vh;min-height:600px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:linear-gradient(135deg,#2a2218 0%,#1a1510 40%,#0e0d0b 100%);}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.6;z-index:0;}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(circle at center, rgba(24,18,13,.4) 0%, rgba(10,9,8,.8) 100%);z-index:1;}
+.hero-content{position:relative;z-index:3;max-width:760px;padding:0 24px;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-size:9px;letter-spacing:.55em;text-transform:uppercase;color:rgba(212,184,150,.88);margin-bottom:34px;opacity:0;animation:fadeUp 1.2s ease .3s forwards;}
+.hero-headline{font-family:"Cormorant Garamond",serif;font-size:clamp(2.8rem,5vw,4.8rem);font-weight:300;line-height:1.1;color:rgba(247,244,239,.96);margin-bottom:20px;letter-spacing:.01em;opacity:0;animation:fadeUp 1.2s ease .5s forwards;}
+.hero-sub{max-width:620px;font-size:11px;letter-spacing:.31em;text-transform:uppercase;color:rgba(224,216,208,.7);line-height:2.2;margin-bottom:38px;opacity:0;animation:fadeUp 1.2s ease .8s forwards;}
+.hero-cta{display:inline-flex;align-items:center;justify-content:center;min-width:150px;padding:14px 20px;border:1px solid rgba(216,190,160,.5);border-radius:999px;background:rgba(28,25,23,.5);backdrop-filter:blur(10px);color:var(--warm-white);text-decoration:none;font-size:9px;letter-spacing:.5em;text-transform:uppercase;opacity:0;animation:fadeUp 1.2s ease 1.05s forwards;transition:all .4s ease;cursor:pointer;}
+.hero-cta:hover{transform:translateY(-3px);border-color:rgba(216,190,160,.82);background:rgba(44,38,33,.7);color:var(--gold-light);}
+.hero-secondary{position:absolute;bottom:60px;opacity:0;animation:fadeUp 1.2s ease 1.8s forwards;z-index:3;}
+.hero-secondary a{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(224,216,208,.6);text-decoration:none;transition:color .4s;}
+.hero-secondary a:hover{color:var(--gold-light);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+#recognition{background:var(--dark);padding:clamp(100px,12vh,160px) 40px;text-align:center;}
+.recognition-content{max-width:700px;margin:0 auto;}
+.recognition-text{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:300;line-height:1.8;color:rgba(247,244,239,.92);margin-bottom:20px;}
+.recognition-text p{margin-bottom:24px;}
+
+#reframe{background:var(--dark);padding:clamp(80px,10vh,140px) 40px;text-align:center;}
+.reframe-content{max-width:800px;margin:0 auto;}
+.reframe-text{font-family:"Cormorant Garamond",serif;font-size:clamp(1.6rem,3.5vw,2rem);font-weight:300;line-height:1.9;color:rgba(244,239,233,.88);letter-spacing:.01em;}
+.reframe-text p{margin-bottom:28px;}
+
+#philosophy{background:var(--dark);padding:clamp(100px,14vh,180px) 40px;}
+.phil-content{max-width:700px;margin:0 auto;text-align:center;}
+.phil-heading{font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:var(--warm-white);line-height:1.2;margin-bottom:24px;}
+.phil-body{font-size:13px;line-height:2.2;color:rgba(240,235,224,.75);margin-bottom:24px;}
+.phil-link{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color .4s;cursor:pointer;}
+.phil-link:hover{color:var(--gold-light);}
+.phil-content{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+  text-align:left;
+}
+
+.phil-image{
+  width:100%;
+}
+
+.phil-image img{
+  width:100%;
+  height:650px;
+  object-fit:cover;
+  display:block;
+}
+
+.phil-text{
+  width:100%;
+}
+
+@media(max-width:900px){
+
+  .phil-content{
+    grid-template-columns:1fr;
+    gap:50px;
+    text-align:center;
+  }
+
+  .phil-image img{
+    height:450px;
+  }
+
+}
+
+#framework{background:var(--dark);padding:clamp(80px,10vh,140px) 40px;}
+.framework-header{text-align:center;margin-bottom:clamp(60px,8vh,100px);}
+.framework-title{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--warm-white);margin-bottom:20px;}
+.framework-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1000px;margin:0 auto;}
+.framework-col{text-align:center;}
+.framework-col-title{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:300;color:var(--gold);margin-bottom:16px;}
+.framework-col-text{font-size:12px;line-height:2.1;color:rgba(240,235,224,.75);}
+
+#sensory{background:var(--dark);padding:clamp(80px,10vh,140px) 40px;text-align:center;}
+.sensory-content{max-width:700px;margin:0 auto;}
+.sensory-text{font-family:"Cormorant Garamond",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:300;line-height:1.8;color:rgba(247,244,239,.88);letter-spacing:.01em;}
+.sensory-text p{margin-bottom:24px;}
+
+#products-enter{background:var(--dark);padding:clamp(60px,8vh,100px) 40px;}
+.products-intro{text-align:center;max-width:800px;margin:0 auto 60px;}
+.products-intro-text{font-family:"Cormorant Garamond",serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:300;color:var(--warm-white);line-height:1.8;margin-bottom:20px;}
+.products-grid-enter{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1100px;margin:0 auto;margin-bottom:50px;}
+.product-card-enter{background:rgba(28,25,23,.4);overflow:hidden;border:1px solid rgba(184,151,106,.1);}
+.product-img-enter{height:300px;background:linear-gradient(145deg,#2a2218 0%,#1a1510 100%);display:flex;align-items:center;justify-content:center;color:rgba(184,151,106,.3);font-size:.9rem;}
+.product-img-enter img{width:100%;height:100%;object-fit:cover;}
+.product-body-enter{padding:24px;}
+.product-tag-enter{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.product-name-enter{font-family:"Cormorant Garamond",serif;font-size:1.4rem;font-weight:300;color:var(--warm-white);margin-bottom:12px;}
+.product-desc-enter{font-size:11px;line-height:1.8;color:rgba(240,235,224,.65);margin-bottom:16px;}
+.product-price-enter{font-family:"Cormorant Garamond",serif;font-size:1.2rem;color:var(--gold);}
+.products-cta{text-align:center;margin-top:40px;}
+.btn-explore{display:inline-block;font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);padding:16px 44px;text-decoration:none;transition:background .4s;cursor:pointer;}
+.btn-explore:hover{background:var(--gold-light);}
+
+.product-img-enter{
+  height:300px;
+  background:linear-gradient(145deg,#2a2218 0%,#1a1510 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(184,151,106,.3);
+  font-size:.9rem;
+  overflow:hidden;
+}
+
+.product-img-enter img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform:scale(1);
+  transition:transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change:transform;
+}
+
+.product-card-enter:hover .product-img-enter img{
+  transform:scale(1.2);
+}
+
+#closing-enter{background:var(--dark);padding:clamp(100px,12vh,160px) 40px;text-align:center;}
+.closing-text{font-family:"Cormorant Garamond",serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:300;color:var(--warm-white);line-height:1.8;}
+
+footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding:40px clamp(40px,6vw,80px);display:flex;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--soft);}
+.footer-copy{font-size:9px;letter-spacing:.2em;color:var(--mid);}
+
+@media(max-width:900px){.framework-grid{grid-template-columns:1fr;}.products-grid-enter{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.products-grid-enter{grid-template-columns:1fr;}footer{flex-direction:column;gap:12px;text-align:center;}}
+@media(max-width:900px){
+
+  nav{
+    padding:20px 24px;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:280px;
+    height:100vh;
+
+    background:rgba(11,10,9,.98);
+    backdrop-filter:blur(20px);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    gap:35px;
+
+    transition:right .5s ease;
+
+    z-index:250;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .nav-links a{
+    font-size:11px;
+    letter-spacing:.35em;
+  }
+
+  .nav-cart{
+    font-size:9px;
+  }
+}
+
+@media(max-width:425px){
+
+  .nav-logo{
+    font-size:11px;
+    letter-spacing:.25em;
+  }
+
+  .nav-cart{
+    display:none;
+  }
+
+  .menu-toggle{
+    font-size:28px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor"><div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Crown Le Corp</a>
+
+  <ul class="nav-links">
+    <li><a href="#framework">How to Enter</a></li>
+    <li><a href="maison.html">The Maison</a></li>
+    <li><a href="index.html#products">Collection</a></li>
+  </ul>
+
+
+  <div class="menu-toggle" onclick="toggleMenu()">
+    ☰
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero-enter">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="1000015555.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Enter</p>
+    <h1 class="hero-headline">Not everything is meant to be rushed.</h1>
+    <p class="hero-sub">A place to learn how to return.</p>
+    <a href="#recognition" class="hero-cta">Begin</a>
+  </div>
+  <div class="hero-secondary">
+    <a href="index.html">Already know my ritual →</a>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section id="recognition">
+  <div class="recognition-content reveal">
+    <div class="recognition-text">
+      <p>There comes a moment when care is no longer about correction.</p>
+      <p>It becomes about return.</p>
+
+      <p style="margin-top:40px;">
+        Not to appearance.<br>
+        But to self.
+      </p>
+
+      <p style="margin-top:40px;">
+        Most routines are built for outcomes.<br>
+        This is built for restoration.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- REFRAME -->
+<section id="reframe">
+  <div class="reframe-content reveal">
+    <div class="reframe-text">
+
+      <p>What you've been given is a system of urgency.</p>
+
+      <p>
+        Apply quickly.<br>
+        Expect change.<br>
+        Move on.
+      </p>
+
+      <p>
+        But the body does not respond to urgency.
+      </p>
+
+      <p>
+        It responds to condition.<br>
+        To repetition.<br>
+        To environment.<br>
+        To intention.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="phil-content reveal">
+
+    <div class="phil-image">
+      <img src="product-img-11.jpeg" alt="Crown Le Corp Philosophy">
+    </div>
+
+    <div class="phil-text">
+      <h2 class="phil-heading">
+        At Crown Le Corp, we do not create products.
+      </h2>
+
+      <p class="phil-body">We construct conditions.</p>
+
+      <p class="phil-body">
+        Rituals designed to restore what constant motion disrupts.
+      </p>
+
+      <p class="phil-body">
+        A return to coherence.
+        Through structure.
+        Through sensation.
+        Through time.
+      </p>
+
+      <a href="maison.html" class="phil-link">
+        Read the Philosophy ↗
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- RITUAL FRAMEWORK -->
+<section id="framework">
+  <div class="framework-header reveal">
+    <h2 class="framework-title">How to Enter a Ritual</h2>
+  </div>
+  <div class="framework-grid">
+    <div class="framework-col reveal">
+      <h3 class="framework-col-title">Prepare</h3>
+      <p class="framework-col-text">Create stillness. Remove interruption. Set the environment.</p>
+    </div>
+    <div class="framework-col reveal">
+      <h3 class="framework-col-title">Apply</h3>
+      <p class="framework-col-text">Not quickly. Not mechanically. But with awareness of contact.</p>
+    </div>
+    <div class="framework-col reveal">
+      <h3 class="framework-col-title">Remain</h3>
+      <p class="framework-col-text">Allow the body to register the experience. This is where restoration begins.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SENSORY -->
+<section id="sensory">
+  <div class="sensory-content reveal">
+    <div class="sensory-text">
+      <p>Texture matters.<br>Temperature matters.<br>Sequence matters.</p>
+      <p style="margin-top:40px;">The body recognizes precision.<br>Even when the mind does not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products-enter">
+<div class="products-intro reveal">
+  <p class="products-intro-text">
+    Three rituals.
+    Each designed for a different point of return.
+  </p>
+
+  <p class="product-desc-enter">
+    Not categories for fixing.<br>
+    Not areas of concern.<br>
+    But conditions for restoration.
+  </p>
+</div>
+  <div class="products-grid-enter" id="productsGrid"></div>
+  <div class="products-cta reveal">
+    <a href="index.html#products" class="btn-explore">Explore the Rituals</a>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing-enter">
+  <div class="closing-text reveal">
+    You will know when to begin.
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Crown Le Corp</span>
+  <span class="footer-copy">© 2026 Crown Le Corp. All rights reserved.</span>
+</footer>
+
+<script>
+const products = [
+  {id:1,tag:"Step I",name:"HYDRATE",image:"product-img-16.jpeg"},
+  {id:2,tag:"Step II",name:"SOFTEN",image:"product-img-19.jpeg"},
+  {id:3,tag:"Step III",name:"CONTOUR",image:"product-img-18.jpeg"}
+];
+
+function renderProducts() {
+  document.getElementById("productsGrid").innerHTML = products.map((p) => `
+    <div class="product-card-enter reveal">
+      <div class="product-img-enter">
+        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;"/>
+      </div>
+      <div class="product-body-enter">
+        <p class="product-tag-enter">${p.tag}</p>
+        <h3 class="product-name-enter">${p.name}</h3>
+        <p class="product-desc-enter">Premium ritual product designed for restoration and care.</p>
+       
+      </div>
+    </div>`).join("");
+  document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+}
+function toggleMenu(){
+  document.querySelector(".nav-links").classList.toggle("active");
+}
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.12});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+const cDot=document.querySelector(".cursor-dot"),cRing=document.querySelector(".cursor-ring");
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){cDot.style.left=mx+"px";cDot.style.top=my+"px";rx+=(mx-rx)*.15;ry+=(my-ry)*.15;cRing.style.left=rx+"px";cRing.style.top=ry+"px";requestAnimationFrame(loop);})();
+document.addEventListener("mouseover",e=>{if(e.target.closest("a,button")){cRing.style.width="52px";cRing.style.height="52px";cRing.style.borderColor="rgba(184,151,106,.9)";}else{cRing.style.width="36px";cRing.style.height="36px";cRing.style.borderColor="rgba(184,151,106,.5)";}});
+
+renderProducts();
+</script>
+</body>
+</html>
