@@ -228,12 +228,14 @@ nav{
 .product-card:hover .real-product-img{transform:scale(1.05);}
 .btn-wishlist{position:absolute;top:14px;right:14px;z-index:10;background:rgba(247,244,239,.85);border:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .3s,transform .3s;}
 .btn-wishlist:hover{background:#fff;transform:scale(1.1);}
-.product-quick{position:absolute;bottom:0;left:0;right:0;background:rgba(28,25,23,.78);backdrop-filter:blur(4px);padding:14px;text-align:center;transform:translateY(100%);transition:transform .4s ease;}
+.product-quick{position:absolute;bottom:0;left:0;right:0;background:rgba(28,25,23,.78);backdrop-filter:blur(4px);padding:14px;text-align:center;transform:translateY(100%);transition:transform .4s ease;display:flex;justify-content:center;gap:18px;}
 .product-card:hover .product-quick{transform:translateY(0);}
 .quick-btn{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bone);background:none;border:none;cursor:none;}
+.quick-btn.ritual-link{color:var(--gold-light);text-decoration:none;}
 .product-body{padding:22px 22px 26px;display:flex;flex-direction:column;gap:7px;flex:1;}
 .product-tag{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);}
-.product-name{font-family:"Cormorant",serif;font-size:1.3rem;font-weight:400;color:var(--charcoal);line-height:1.2;}
+.product-name{font-family:"Cormorant",serif;font-size:1.3rem;font-weight:400;color:var(--charcoal);line-height:1.2;text-decoration:none;transition:color .3s;}
+.product-name:hover{color:var(--gold);}
 .product-desc{font-size:11.5px;line-height:1.8;color:#7a7068;margin-top:2px;flex:1;}
 .product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid var(--ecru);}
 .product-price{font-family:"Cormorant",serif;font-size:1.25rem;color:var(--charcoal);}
@@ -316,6 +318,8 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
 .sp-btn-cart:hover{background:#2e2b28;}
 .sp-btn-wish{background:none;border:1px solid var(--soft);width:52px;display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .3s;}
 .sp-btn-wish:hover{border-color:var(--gold);}
+.sp-view-full{display:block;text-align:center;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:14px 0;border:1px solid rgba(184,151,106,.3);margin-bottom:20px;transition:background .3s,color .3s;}
+.sp-view-full:hover{background:var(--charcoal);color:var(--gold-light);}
 .sp-ritual{margin-top:auto;padding-top:20px;border-top:1px solid var(--ecru);}
 .sp-ritual-label{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--mid);margin-bottom:12px;}
 .sp-ritual-steps{display:flex;gap:20px;}
@@ -718,9 +722,9 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
 <script>
 // PRODUCT DATA
 const products = [
-  {id:1,tag:"Step I &#8212; Preparation",name:"HYDRATE",nameRaw:"HYDRATE",sub:"Body Blush Cream &middot; 150g",price:45,desc:"A cloud-light body cream that delivers deep, lasting hydration. Infused with hyaluronic complex, pink botanical extracts, and shea. Skin is left visibly plumped, softened, and luminously healthy.",notes:"After cleansing, warm a generous amount between palms. Apply from feet upward, pressing gently into skin. Let each layer absorb before reaching for the next.",ingredients:"Aqua, Butyrospermum Parkii, Hyaluronic Acid, Rosa Centifolia, Glycerin, Vitamin E",image:"product-img-16.jpeg",bgClass:"sp-vbg-1"},
-  {id:2,tag:"Step II &#8212; Anointing",name:"SOFTEN",nameRaw:"SOFTEN",sub:"Collagen Body Serum &middot; 120ml",price:45,desc:"A concentrated body serum with marine collagen, ceramides, and bakuchiol. Melts into skin on contact, visibly firming and deeply conditioning. The anointing step — skin drinks it in.",notes:"Apply to areas of tension or dryness. Press into skin with both hands, starting at the chest and moving down. This is not something to complete — it is a world to enter.",ingredients:"Marine Collagen, Ceramide NP, Bakuchiol, Squalane, Centella Asiatica",image:"product-img-19.jpeg",bgClass:"sp-vbg-2"},
-  {id:3,tag:"Step III &#8212; Sealing",name:"CONTOUR",nameRaw:"CONTOUR",sub:"Body Contour Serum &middot; 100ml",price:45,desc:"A sculpting serum-oil hybrid that seals the ritual and supports natural body contours. With caffeine, guarana, and golden jojoba oil. The final act — the body is sealed, held, complete.",notes:"Mist or press onto skin as the final ritual step. Close your eyes. The ritual ends here. Carry the softness with you.",ingredients:"Coffea Arabica, Paullinia Cupana Extract, Jojoba Oil, Retinyl Palmitate, Gold Peptide",image:"product-img-18.jpeg",bgClass:"sp-vbg-3"}
+  {id:1,tag:"Step I &#8212; Preparation",name:"HYDRATE",nameRaw:"HYDRATE",sub:"Body Blush Cream &middot; 150g",price:45,desc:"A cloud-light body cream that delivers deep, lasting hydration. Infused with hyaluronic complex, pink botanical extracts, and shea. Skin is left visibly plumped, softened, and luminously healthy.",notes:"After cleansing, warm a generous amount between palms. Apply from feet upward, pressing gently into skin. Let each layer absorb before reaching for the next.",ingredients:"Aqua, Butyrospermum Parkii, Hyaluronic Acid, Rosa Centifolia, Glycerin, Vitamin E",image:"product-img-16.jpeg",bgClass:"sp-vbg-1",page:"hydrate.html"},
+  {id:2,tag:"Step II &#8212; Anointing",name:"SOFTEN",nameRaw:"SOFTEN",sub:"Collagen Body Serum &middot; 120ml",price:45,desc:"A concentrated body serum with marine collagen, ceramides, and bakuchiol. Melts into skin on contact, visibly firming and deeply conditioning. The anointing step — skin drinks it in.",notes:"Apply to areas of tension or dryness. Press into skin with both hands, starting at the chest and moving down. This is not something to complete — it is a world to enter.",ingredients:"Marine Collagen, Ceramide NP, Bakuchiol, Squalane, Centella Asiatica",image:"product-img-19.jpeg",bgClass:"sp-vbg-2",page:"soften.html"},
+  {id:3,tag:"Step III &#8212; Sealing",name:"CONTOUR",nameRaw:"CONTOUR",sub:"Body Contour Serum &middot; 100ml",price:45,desc:"A sculpting serum-oil hybrid that seals the ritual and supports natural body contours. With caffeine, guarana, and golden jojoba oil. The final act — the body is sealed, held, complete.",notes:"Mist or press onto skin as the final ritual step. Close your eyes. The ritual ends here. Carry the softness with you.",ingredients:"Coffea Arabica, Paullinia Cupana Extract, Jojoba Oil, Retinyl Palmitate, Gold Peptide",image:"product-img-18.jpeg",bgClass:"sp-vbg-3",page:"contour.html"}
 ];
 
 let cart = [];
@@ -736,11 +740,14 @@ function renderProducts() {
         <button class="btn-wishlist ${wishlist.has(p.id)?"active":""}" onclick="toggleWishlist(${p.id},event)">
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 14S2 10 2 5.5A3.5 3.5 0 018 3.5 3.5 3.5 0 0114 5.5C14 10 8 14 8 14z" stroke="#1c1917" stroke-width="1" fill="${wishlist.has(p.id)?"var(--gold)":"none"}"/></svg>
         </button>
-        <div class="product-quick"><button class="quick-btn" onclick="openSP(${p.id})">Quick View</button></div>
+        <div class="product-quick">
+          <button class="quick-btn" onclick="openSP(${p.id})">Quick View</button>
+          <a class="quick-btn ritual-link" href="${p.page}">View Ritual →</a>
+        </div>
       </div>
       <div class="product-body">
         <p class="product-tag">${p.tag}</p>
-        <h3 class="product-name">${p.nameRaw}</h3>
+        <a href="${p.page}" class="product-name">${p.nameRaw}</a>
         <p class="product-desc">${p.desc.split(".").slice(0,2).join(".")}.</p>
         <div class="product-footer">
           <span class="product-price">$${p.price}.00</span>
@@ -824,6 +831,7 @@ function openSP(id) {
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 14S2 10 2 5.5A3.5 3.5 0 018 3.5 3.5 3.5 0 0114 5.5C14 10 8 14 8 14z" stroke="#1c1917" stroke-width="1" fill="${wishlist.has(p.id)?"var(--gold)":"none"}"/></svg>
         </button>
       </div>
+      <a href="${p.page}" class="sp-view-full">View Full Ritual Page →</a>
       <div class="sp-ritual">
         <p class="sp-ritual-label">Part of the complete ritual</p>
         <div class="sp-ritual-steps">
