@@ -85,7 +85,6 @@ nav{
 .slide-video-wrap video{width:100%;height:100%;object-fit:cover;opacity:0.85;}
 .slide-video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
 .svp-bg-1{background:linear-gradient(145deg,#2a2218 0%,#1a1510 40%,#0e0d0b 100%);}
-.svp-bg-2{background:linear-gradient(145deg,#1e1a14 0%,#28221c 50%,#141210 100%);}
 .svp-bg-3{background:linear-gradient(145deg,#181512 0%,#221e18 50%,#100f0d 100%);}
 .svp-icon{width:64px;height:64px;border:1px solid rgba(184,151,106,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .svp-label{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:rgba(184,151,106,.5);}
@@ -552,17 +551,7 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
       <p class="slide-desc">The body opens when it is no longer hurried.</p>
     </div>
   </div>
-  <div class="slide" id="slide-1">
-    <div class="slide-video-wrap">
-      <video id="vid1" autoplay muted loop playsinline>
-        <source src="1000015550.mp4" type="video/mp4">
-      </video>
-      <div class="video-badge">
-        <div class="vb-dot"></div>
-        <span class="vb-text">Anointing</span>
-      </div>
-      <button class="mute-btn" onclick="toggleMute(1)" id="muteBtn1">🔊</button>
-    </div>
+ 
     <div class="slide-content">
       <p class="slide-tag">The Ritual — Step II</p>
       <h2 class="slide-title">Anoint.<br>Nourish.<br>Feel.</h2>
@@ -572,7 +561,6 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
   <div class="slider-controls">
     <div class="slider-dots" id="sliderDots">
       <div class="sdot active" onclick="goToSlide(0)"></div>
-      <div class="sdot" onclick="goToSlide(1)"></div>
     </div>
     <div class="slider-arrows">
       <button class="sarrow" onclick="prevSlide()">←</button>
@@ -881,8 +869,8 @@ function goToSlide(n) {
   document.querySelectorAll(".sdot")[currentSlide].classList.add("active");
   resetProgress();
 }
-function nextSlide(){goToSlide((currentSlide+1)%2);}
-function prevSlide(){goToSlide((currentSlide+1)%2);}
+function nextSlide(){goToSlide(0);}
+function prevSlide(){goToSlide(0);}
 function resetProgress(){
   clearInterval(progressTimer); progressVal=0;
   document.getElementById("sliderBar").style.width="0%";
@@ -895,7 +883,7 @@ function resetProgress(){
 resetProgress();
 
 // MUTE
-const muteState={0:true,1:true};
+const muteState={0:true};
 function toggleMute(i){
   muteState[i]=!muteState[i];
   const v=document.getElementById("vid"+i);
