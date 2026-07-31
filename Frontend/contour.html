@@ -132,7 +132,8 @@ nav.scrolled{background:rgba(11,10,9,.92);backdrop-filter:blur(12px);padding:18p
   .texture-strip{flex-direction:column;min-height:auto;}
   .texture-strip .texture-text,
   .texture-strip .texture-img{width:100%;}
-  .texture-strip .texture-img{height:60vh;}
+  .texture-strip .texture-img{height:auto;}
+  .texture-strip .texture-img img{height:auto;}
 }
 
 /* ══ OUTCOMES ══ */
@@ -304,22 +305,6 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
   </div>
 </section>
 
-<div class="texture-strip reveal">
-  <div class="texture-text">
-    <p class="section-label" style="text-align:left;">The Philosophy</p>
-    <h2>Not to force&#8212;<br><span class="accent">but to define.</span></h2>
-    <div class="texture-body">
-      <p>The waist holds its own memory&#8212;of posture, of movement, of the body's natural line.</p>
-      <p>This ritual does not seek to reshape by force. It seeks to define, to tighten, to bring back a sense of contour.</p>
-      <p>Warmth. Sculpting. Care.</p>
-      <p style="color:var(--gold-light);font-style:italic;font-family:'Cormorant',serif;">A quiet return to definition, tone, and shape.</p>
-    </div>
-  </div>
-  <div class="texture-img">
-    <img src="product-img-22.jpeg" alt="">
-  </div>
-</div>
-
 <!-- 3. WHAT IT BECOMES -->
 <section id="outcomes">
   <div class="outcomes-inner">
@@ -364,6 +349,22 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
     </div>
   </div>
 </section>  
+
+<!-- EDITORIAL -->
+<div class="texture-strip reveal">
+  <div class="texture-img">
+    <img src="product-img-6.jpeg" alt="Crown le Corp Contour">
+  </div>
+  <div class="texture-text">
+    <p class="section-label" style="text-align:left;">Editorial</p>
+    <h2>The Quiet Intelligence <span class="accent">of Form.</span></h2>
+    <div class="texture-body">
+      <p>The body is always organizing itself.<br>Seeking balance.<br>Responding to movement.<br>Adapting to the conditions it is given.</p>
+      <p>Form is not created in a single moment.<br>It emerges through repetition.<br>Through warmth.<br>Through presence.</p>
+      <p style="color:var(--gold-light);font-style:italic;font-family:'Cormorant',serif;font-size:15px;">Contour was never designed to force the body into a shape. It was created to support the body&#8217;s own intelligence&#8212;allowing definition to return naturally, one ritual at a time.</p>
+    </div>
+  </div>
+</div>
 
 <!-- 6. THE EXPERIENCE -->
 <section id="experience">
@@ -435,6 +436,11 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
   <h2 class="final-heading reveal">Return to your form.</h2>
   <button class="btn-gold reveal" onclick="addToCart()">Begin the Ritual</button>
 </section>
+
+<!-- SIGNATURE -->
+<div style="background:var(--dark);text-align:center;padding:clamp(44px,6vh,68px) 24px;border-top:1px solid rgba(184,151,106,.15);">
+  <span style="font-family:'Cormorant',serif;font-style:italic;font-size:clamp(1.1rem,2vw,1.5rem);letter-spacing:.05em;color:var(--gold-light);">Luxury begins where urgency ends</span>
+</div>
 
 <footer>
   <span class="footer-logo">Crown Le Corp</span>

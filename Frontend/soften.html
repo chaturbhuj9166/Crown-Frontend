@@ -132,7 +132,8 @@ nav.scrolled{background:rgba(11,10,9,.92);backdrop-filter:blur(12px);padding:18p
   .texture-strip{flex-direction:column;min-height:auto;}
   .texture-strip .texture-text,
   .texture-strip .texture-img{width:100%;}
-  .texture-strip .texture-img{height:60vh;}
+  .texture-strip .texture-img{height:auto;}
+  .texture-strip .texture-img img{height:auto;}
 }
 
 /* ══ OUTCOMES ══ */
@@ -304,22 +305,6 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
   </div>
 </section>
 
-<div class="texture-strip reveal">
-  <div class="texture-text">
-    <p class="section-label" style="text-align:left;">The Philosophy</p>
-    <h2>Not to erase&#8212;<br><span class="accent">but to smoothen.</span></h2>
-    <div class="texture-body">
-      <p>Skin that has softened carries its own rhythm&#8212;of texture, of movement, of the body's natural form.</p>
-      <p>This ritual does not seek to fight that texture. It seeks to soften, to smoothen, to bring back a sense of ease.</p>
-      <p>Warmth. Circulation. Care.</p>
-      <p style="color:var(--gold-light);font-style:italic;font-family:'Cormorant',serif;">A quiet return to smoothness, tone, and confidence.</p>
-    </div>
-  </div>
-  <div class="texture-img">
-    <img src="product-img-14.jpeg" alt="">
-  </div>
-</div>
-
 <!-- 3. WHAT IT BECOMES -->
 <section id="outcomes">
   <div class="outcomes-inner">
@@ -364,6 +349,23 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
     </div>
   </div>
 </section>
+
+<!-- EDITORIAL -->
+<div class="texture-strip reveal">
+  <div class="texture-img">
+    <img src="product-img-8.jpeg" alt="Crown le Corp Soften">
+  </div>
+  <div class="texture-text">
+    <p class="section-label" style="text-align:left;">Editorial</p>
+    <h2>What Touch <span class="accent">Teaches.</span></h2>
+    <div class="texture-body">
+      <p>The skin is always listening.<br>Not only to ingredients&#8212;<br>but to temperature.<br>To pressure.<br>To rhythm.</p>
+      <p>A hurried hand and an intentional hand leave different impressions.<br>The body recognizes the difference between routine and ritual.</p>
+      <p>When touch slows, awareness follows.<br>And what begins as care becomes a luxurious return to self.<br>In that moment, time becomes part of the ritual.</p>
+      <p style="color:var(--gold-light);font-style:italic;font-family:'Cormorant',serif;font-size:15px;">Perhaps the greatest luxury is remembering that your body deserves your full attention.</p>
+    </div>
+  </div>
+</div>
 
 <!-- 6. THE EXPERIENCE -->
 <section id="experience">
@@ -435,6 +437,11 @@ footer{background:var(--dark);border-top:1px solid rgba(184,151,106,.15);padding
   <h2 class="final-heading reveal">Refine the surface.</h2>
   <button class="btn-gold reveal" onclick="addToCart()">Begin the Ritual</button>
 </section>
+
+<!-- SIGNATURE -->
+<div style="background:var(--dark);text-align:center;padding:clamp(44px,6vh,68px) 24px;border-top:1px solid rgba(184,151,106,.15);">
+  <span style="font-family:'Cormorant',serif;font-style:italic;font-size:clamp(1.1rem,2vw,1.5rem);letter-spacing:.05em;color:var(--gold-light);">Luxury begins where urgency ends</span>
+</div>
 
 <footer>
   <span class="footer-logo">Crown Le Corp</span>
